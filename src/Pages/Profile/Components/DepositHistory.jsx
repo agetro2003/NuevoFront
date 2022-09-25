@@ -5,7 +5,8 @@ import {
     Modal,
     ModalHeader,
     ModalBody,
-    ModalFooter
+    ModalFooter,
+    Spinner
 } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react'
@@ -13,6 +14,8 @@ import endpointList from '../../../../settings/endpoints'
 import API_AXIOS from '../../../../settings/settings'
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 function DepositHistory(props) {
+
+    const [spinner,setSpinner] = useState(false);
 
     const { depositFlag: flag, setDepositFlag: setFlag } = props.val;
 
@@ -24,10 +27,12 @@ function DepositHistory(props) {
 
     const getData = async () => {
         try {
+            setSpinner(true);
             let string = "?email=" + email.slice(1, email.length - 1)
             //console.log(string)
             let { data } = await API_AXIOS.get(endpointList.getDeposits + string)
-            setDeposits(data)
+            setDeposits(data);
+            setSpinner(false);
         } catch (error) {
             console.log(error)
         }
@@ -41,11 +46,12 @@ function DepositHistory(props) {
     }, [])
     return (
         <Modal isOpen={flag}>
-        <Container>
-            <ModalHeader>
+        <Container className='text-center'>
+            <ModalHeader className='text-dark'>
             Deposits
             </ModalHeader>
             <ModalBody>
+            {spinner?<Spinner color='info'/>:
             <Table striped>
                 <thead>
                     <tr>
@@ -63,9 +69,10 @@ function DepositHistory(props) {
                         ))}
                 </tbody>
             </Table>
+            }
             </ModalBody>
             <ModalFooter>
-                <Button onClick={()=>setFlag(false)}>X</Button>
+                <Button disabled={spinner} className='btn-menu text-light' color='info' onClick={()=>setFlag(false)}>X</Button>
             </ModalFooter>
         </Container>
         </Modal>

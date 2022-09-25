@@ -14,6 +14,8 @@ function ExamplesNavbar(props) {
 
   const links = props?.val || null;
 
+  const { env } = props;
+
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
@@ -21,7 +23,7 @@ function ExamplesNavbar(props) {
   return (
     <>
       <Navbar fixed="top" className="nav" expand="lg" dark container>
-        <NavbarBrand href="/home/" className="me-auto">
+        <NavbarBrand href={env?"/menu":"/home"} className="me-auto">
           <img src="../../../../Public/assets/Logo.png" className="img-fluid navbarimg" alt="..." />
         </NavbarBrand>
         {links ? <><NavbarToggler onClick={toggleNavbar} />

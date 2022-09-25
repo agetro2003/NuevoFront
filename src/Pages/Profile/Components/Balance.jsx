@@ -1,4 +1,4 @@
-import { Container, Button, Table, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Container, Button, Table, Modal, ModalHeader, ModalBody, ModalFooter, Spinner } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react'
 import endpointList from '../../../../settings/endpoints'
@@ -7,6 +7,8 @@ import { useLocalStorage } from '../../../hooks/useLocalStorage';
 
 
 function Balance(props) {
+
+    const [spinner,setSpinner] = useState(false);
 
     const { balanceFlag: flag, setBalanceFlag: setFlag } = props.val;
 
@@ -18,6 +20,7 @@ function Balance(props) {
 
     const getData = async () => {
         try {
+            setSpinner(true);
             let string = "?email=" + email.slice(1, email.length - 1)
             let { data } = await API_AXIOS.get(endpointList.getBalance + string)
             let keys = Object.keys(data)
@@ -25,8 +28,8 @@ function Balance(props) {
             for (let i = 0; i < keys.length; i++) {
                 bal.push({ currency: keys[i].toUpperCase(), amount: data[keys[i]] })
             }
-            console.log(bal)
-            setBalance(bal)
+            setBalance(bal);
+            setSpinner(false);
         } catch (error) {
             console.log(error)
         }
@@ -40,11 +43,13 @@ function Balance(props) {
     }, [])
     return (
         <Modal isOpen={flag}>
+            <Container className='text-center'>
             <ModalHeader className='text-dark'>
                 Balance
             </ModalHeader>
             <ModalBody>
                 <Container>
+                    {spinner?<Spinner className="text-center text-info"/>:
                     <Table striped>
                         <thead>
                             <tr>
@@ -59,16 +64,16 @@ function Balance(props) {
                                     <tr>
                                         <td>{currency.currency}</td>
                                         <td>{currency.amount}</td>
-
                                     </tr>
                                 ))}
                         </tbody>
-                    </Table>
+                    </Table>}
                 </Container>
             </ModalBody>
             <ModalFooter>
-                <Button onClick={() => setFlag(false)}>X</Button>
+                <Button disabled={spinner} className='btn-menu text-light' color="info" onClick={() => setFlag(false)}>X</Button>
             </ModalFooter>
+            </Container>
         </Modal>
     )
 }

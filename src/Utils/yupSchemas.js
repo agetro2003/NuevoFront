@@ -46,7 +46,7 @@ const validatePaySchema = yup.object().shape({
     hour: yup.number().typeError(numericMsg).min(0).max(24).required(requiredMsg),
     minute: yup.number().typeError(numericMsg).min(0).max(60).required(requiredMsg),
     second: yup.number().typeError(numericMsg).min(0).max(60).required(requiredMsg),
-    quantity: yup.number().typeError(numericMsg).required()
+    amount: yup.number().typeError(numericMsg).required(requiredMsg)
 });
 
 export { loginSchema, registerSchema, sendPaymentSchema, validatePaySchema, transactionsSchema, forgetPwSchema }

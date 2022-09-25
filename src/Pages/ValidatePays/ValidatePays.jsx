@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validatePaySchema } from "../../Utils/yupSchemas";
 import {
@@ -31,8 +31,10 @@ function ValidatePays(props) {
 
   const {
     register,
+    control,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm({
     resolver: yupResolver(validatePaySchema),
   });
@@ -60,59 +62,167 @@ function ValidatePays(props) {
 
       <ModalBody>
         <Form onSubmit={handleSubmit(fnSend)}>
+          <Controller
+            control={control}
+            name="year"
+            render={({ field: { ref, ...yearProps } }) => (
+              <FormGroup>
+                <Label for="year"> Year </Label>
+                <Input
 
-          <FormGroup isInvalid={errors.year}>
-            <Label> Year </Label>
-            <Input id="year" placeholder="year" type="number" {...register("year")} />
-            <FormFeedback>{errors.year?.message}</FormFeedback>
-          </FormGroup>
+                  name="year"
+                  placeholder="Year"
+                  type="number"
+                  id="year"
 
+                  invalid={errors.year ? true : false}
+                  innerRef={ref} {...yearProps}
+                />
+                {errors?.year && (
+                  <FormFeedback>{errors.year?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="month"
+            render={({ field: { ref, ...monthProps } }) => (
+              <FormGroup>
+                <Label for="month"> Month </Label>
+                <Input
 
-          <FormGroup isInvalid={errors.month}>
-            <Label> Month </Label>
-            <Input id="month" placeholder="month" type="text" {...register("month")} />
-            <FormFeedback>{errors.month?.message}</FormFeedback>
-          </FormGroup>
+                  name="month"
+                  placeholder="Month"
+                  type="number"
+                  id="month"
 
+                  invalid={errors.month ? true : false}
+                  innerRef={ref} {...monthProps}
+                />
+                {errors?.month && (
+                  <FormFeedback>{errors.month?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="day"
+            render={({ field: { ref, ...dayProps } }) => (
+              <FormGroup>
+                <Label for="day"> Day </Label>
+                <Input
 
-          <FormGroup isInvalid={errors.day}>
-            <Label> Day </Label>
-            <Input id="day" placeholder="day" type="number" {...register("day")} />
-            <FormFeedback>{errors.day?.message}</FormFeedback>
-          </FormGroup>
+                  name="day"
+                  placeholder="Day"
+                  type="number"
+                  id="day"
 
+                  invalid={errors.day ? true : false}
+                  innerRef={ref} {...dayProps}
+                />
+                {errors?.day && (
+                  <FormFeedback>{errors.day?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="hour"
+            render={({ field: { ref, ...hourProps } }) => (
+              <FormGroup>
+                <Label for="hour"> Hour </Label>
+                <Input
 
-          <FormGroup isInvalid={errors.hour}>
-            <Label> Hour </Label>
-            <Input id="hour" placeholder="hour" type="number" {...register("hour")} />
-            <FormFeedback>{errors.hour?.message}</FormFeedback>
-          </FormGroup>
+                  name="hour"
+                  placeholder="Hour"
+                  type="number"
+                  id="hour"
 
-          <FormGroup isInvalid={errors.minute}>
-            <Label> Minute </Label>
-            <Input id="minute" placeholder="minute" type="number" {...register("minute")} />
-            <FormFeedback>{errors.minute?.message}</FormFeedback>
-          </FormGroup>
+                  invalid={errors.hour ? true : false}
+                  innerRef={ref} {...hourProps}
+                />
+                {errors?.hour && (
+                  <FormFeedback>{errors.hour?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="minute"
+            render={({ field: { ref, ...minuteProps } }) => (
+              <FormGroup>
+                <Label for="minute"> Minutes </Label>
+                <Input
 
+                  name="minute"
+                  placeholder="Minutes"
+                  type="number"
+                  id="minute"
 
-          <FormGroup isInvalid={errors.second}>
-            <Label> Second </Label>
-            <Input id="second" placeholder="second" type="number" {...register("second")} />
-            <FormFeedback>{errors.second?.message}</FormFeedback>
-          </FormGroup>
+                  invalid={errors.minute ? true : false}
+                  innerRef={ref} {...minuteProps}
+                />
+                {errors?.minute && (
+                  <FormFeedback>{errors.minute?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="second"
+            render={({ field: { ref, ...secondProps } }) => (
+              <FormGroup>
+                <Label for="second"> Seconds </Label>
+                <Input
 
-          <FormGroup isInvalid={errors.quantity}>
-            <Label> Quantity </Label>
-            <Input id="quantity" placeholder="quantity" type="text" {...register("quantity")} />
-            <FormFeedback>{errors.quantity?.message}</FormFeedback>
-          </FormGroup>
+                  name="second"
+                  placeholder="Seconds"
+                  type="number"
+                  id="second"
+
+                  invalid={errors.second ? true : false}
+                  innerRef={ref} {...secondProps}
+                />
+                {errors?.second && (
+                  <FormFeedback>{errors.second?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
+          <Controller
+            control={control}
+            name="amount"
+            render={({ field: { ref, ...amountProps } }) => (
+              <FormGroup>
+                <Label for="amount"> Amount </Label>
+                <Input
+
+                  name="amount"
+                  placeholder="Amount"
+                  type="number"
+                  id="amount"
+
+                  invalid={errors.amount ? true : false}
+                  innerRef={ref} {...amountProps}
+                />
+                {errors?.amount && (
+                  <FormFeedback>{errors.amount?.message}</FormFeedback>
+                )}
+              </FormGroup>
+            )}
+          />
           <Container className="text-center">
-            {spinner ? <Button disabled={spinner} type="submit" value="register"><Spinner /></Button> : <Button type="submit" className="text-center" value="register">Validate</Button>}
+            {spinner ? <Button disabled={spinner} type="submit" className="btn-menu text-light" color="info" value="register"><Spinner /></Button> : <Button type="submit" className="text-center btn-menu text-light" color="info" value="register">Validate</Button>}
           </Container>
         </Form>
       </ModalBody>
       <ModalFooter>
-        <Button onClick={() => setValFlag(false)}>X</Button>
+        <Button disabled={spinner} className="btn-menu text-light" color="info" onClick={() => setValFlag(false)}>X</Button>
       </ModalFooter>
     </Modal>
   )

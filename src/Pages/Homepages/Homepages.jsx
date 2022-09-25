@@ -19,7 +19,7 @@ function Homepages() {
     return (
         <>
             <ExamplesNavbar val={["register", "login"]} />
-            <Container className="d-flex flex-column wrapper m-5 text-center">
+            <Container className="d-flex flex-column wrapper">
                 <Container className=" d-flex flex-column">
                     <h2 className="align-self-center title p-3">Quienes Somos?</h2>
                     <h5 className="description p-3">
@@ -27,25 +27,29 @@ function Homepages() {
                         las billeteras digitales.
                     </h5>
                 </Container>
-                <Container className="text-center">
-                    <Container className="p-5 ">
-                        <h2 className="title text-center">Las CryptoMonedas que aceptamos</h2>
-                        <div className="CryptoCurrencies">
-                            <Row >
-                                <Card title="USDT" cat="StableCoin">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, nostrum!
-                                </Card>
-                                <Card title="BUSD" cat="Stablecoin">
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, sapiente.
-                                </Card>
-                                <Card title="SOL" cat="CryptoCurrency">
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, dicta!
-                                </Card>
-                                <Card title="Another" cat="CryptoCurrency">
-                                    Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, dolores?
-                                </Card>
-                            </Row>
-                        </div>
+                <Container className="d-flex flex-column justify-content-center align-items-center">
+                    <h2 className="mb-3">Las CryptoMonedas que aceptamos</h2>
+                    <Container className="CryptoCurrencies">
+                        <Row>
+                            <Card title="USDT" cat="StableCoin">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, nostrum!
+                            </Card>
+                            <Card title="BUSD" cat="Stablecoin">
+                                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Non, sapiente.
+                            </Card>
+                            <Card title="SOL" cat="CryptoCurrency">
+                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus, dicta!
+                            </Card>
+                            <Card title="Another" cat="CryptoCurrency">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, dolores?
+                            </Card>
+                            <Card title="Another" cat="CryptoCurrency">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, dolores?
+                            </Card>
+                            <Card title="Another" cat="CryptoCurrency">
+                                Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero, dolores?
+                            </Card>
+                        </Row>
                     </Container>
                 </Container>
                 <div className="section section-contact-us text-center">

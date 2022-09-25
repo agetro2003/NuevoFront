@@ -1,4 +1,4 @@
-import { useForm, Controller} from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import API_AXIOS from "../../../settings/settings";
 import endpointList from "../../../settings/endpoints";
@@ -11,7 +11,6 @@ import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import EmailAlert from "./EmailAlert";
 import { useState } from "react";
 import ExamplesNavbar from "./Navbar";
-import { useEffect } from "react";
 
 
 function Login() {
@@ -22,23 +21,26 @@ function Login() {
     formState: { errors }
   } = useForm({
     mode: "onChange",
-    resolver:yupResolver(loginSchema)
-   
+    resolver: yupResolver(loginSchema)
+
   });
 
-  const { ref, ...emailField } = register("email");
-  
-   let [email, setEmail] = useLocalStorage('userEmailHP', '');
-   let [userLogin, setUserLogin] = useLocalStorage('user', "")
+  const [valFlag,setValFlag] = useState(false);
 
-   const [spinner, setSpinner] = useState(false);
+  const { ref, ...emailField } = register("email");
+
+  let [email, setEmail] = useLocalStorage('userEmailHP', '');
+
+  let [userLogin, setUserLogin] = useLocalStorage('user', "");
+
+  const [spinner, setSpinner] = useState(false);
 
   const navigate = useNavigate();
 
   const onSubmit = async (data) => {
     alert(JSON.stringify(data))
     try {
-      setSpinner(true)
+      setSpinner(true);
       let call = await API_AXIOS.get(
         endpointList.login + `?email=${data.email}&password=${data.password}`
       );
@@ -60,7 +62,7 @@ function Login() {
 
         default:
           reset();
-      setSpinner(false);
+          setSpinner(false);
       }
     } catch (error) {
       console.log("hello");
@@ -69,8 +71,8 @@ function Login() {
   };
 
   const handlePassword = () => {
-    setFlag(true);
-    navigate('/login/forgetpassword');
+    setValFlag(true);
+    navigate('/login/forgotpassword');
   }
 
 
@@ -83,7 +85,7 @@ function Login() {
             <CardTitle className="border-bottom d-flex">
               <span></span>
               <h2 className="text-center">Login</h2>
-              <Button className="ms-auto mb-2" onClick={() => navigate("/home")}>X</Button>
+              <Button className="ms-auto mb-2 btn-menu text-light" disabled={spinner} color="info" onClick={() => navigate("/home")}>X</Button>
             </CardTitle>
 
             <Form onSubmit={handleSubmit(onSubmit)}>
@@ -103,45 +105,46 @@ function Login() {
                     )}
                   </FormGroup>
                 </Col>
-                
+
                 <Col md={12}>
-                <Controller
-                      control={control}
-                      name="password"
-                      render={({ field: { ref, ...fieldProps } }) => (
-                        <FormGroup floating>
-                          <Input
-                      bsSize="sm"
-                      name="password"
-                      placeholder="password"
-                      type="password"
-          
-                      invalid={errors.password ? true : false}
-                      innerRef={ref} {...fieldProps}
-                    />
-                      
-                      <Label for="password"> Password </Label>
-                      {errors?.password && (
-                        <FormFeedback>{errors.password?.message}</FormFeedback>
-                      )}
-                        </FormGroup>
-                      )}
-                    />
-                  
-                    
+                  <Controller
+                    control={control}
+                    name="password"
+                    render={({ field: { ref, ...fieldProps } }) => (
+                      <FormGroup floating>
+                        <Input
+                          bsSize="sm"
+                          name="password"
+                          placeholder="password"
+                          type="password"
+
+                          invalid={errors.password ? true : false}
+                          innerRef={ref} {...fieldProps}
+                        />
+
+                        <Label for="password"> Password </Label>
+                        {errors?.password && (
+                          <FormFeedback>{errors.password?.message}</FormFeedback>
+                        )}
+                      </FormGroup>
+                    )}
+                  />
 
 
-                    
-                  
+
+
+
+
                 </Col>
               </Row>
-              <Button type="submit">Login</Button> <br></br> <br></br>
-              <Button  onClick={handlePassword} >Olvidaste tu contraseña </Button>
+              {spinner ? <Button className="btn-menu text-light" color="info" type="submit"><Spinner /></Button> : <Button className="btn-menu text-light" color="info" type="submit">Login</Button>}
+              <br />
+              <Button className="mt-3 btn-menu text-light" color="info" disabled={spinner} onClick={handlePassword} >Olvidaste tu contraseña </Button>
             </Form>
           </CardBody>
         </Card>
         <Routes>
-       
+        <Route path='/forgotpassword' element={<EmailAlert val={{ valFlag, setValFlag }} />} />
         </Routes>
       </Container>
     </Container>
