@@ -11,6 +11,7 @@ import ForgotPassword from './Pages/ForgotPassword/ForgotPassword'
 import PageNotFound from './Pages/PageNotFound/PageNotFound'
 import AutoLogOut from './Pages/AutoLogOut/AutoLogOut'
 import "../src/scss/style.scss";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from "../src/Pages/Homepages/Components/Login";
 import Register from "../src/Pages/Homepages/Components/Register";
 
@@ -22,17 +23,19 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route element={<ProtectedRoute />}>
           <Route path='/menu/*' element={<Menu />} />
         </Route>
-        <Route element={<ProtectedRoute />}>
+        {/* <Route element={<ProtectedRoute />}> */}
           <Route path='/profile/*' element={<Profile />} />
-        </Route>
+        {/* </Route> */}
         <Route path='/Login/*' element={<Login />} />
         <Route path='/Register/*' element={<Register />} />
-        <Route path="/*" element={<Homepages />} />
+        <Route path="/home/*" element={<Homepages />} />
         <Route path='/verifyEmail/:token' element={< VerifyEmail />} />
-          <Route path='/forgotPassword/:email' element={< ForgotPassword />} />
-          <Route path='/sendpayment' element={<SendPayment/>}/>
-          <Route path="/*" element={<PageNotFound/>}/>
-          <Route path="/autoLogOut" element={<AutoLogOut/>}/>
+        <Route path='/forgotPassword/:email' element={< ForgotPassword />} />
+        <Route element={<ProtectedRoute />}>
+        <Route path='/sendpayment/*' element={<SendPayment />} />
+        </Route>
+        <Route path="/*" element={<PageNotFound />} />
+        <Route path="/autoLogOut" element={<AutoLogOut />} />
       </Routes>
     </Browser>
   </React.StrictMode>

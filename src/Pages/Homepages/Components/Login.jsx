@@ -1,11 +1,11 @@
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import API_AXIOS from "../../../settings/settings";
 import endpointList from "../../../settings/endpoints";
-import { Route, Routes, useNavigate, Link as reactLink } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { loginSchema } from "../../../Utils/yupSchemas"
 import {
-  Container, Button, Label, Input, Form, FormGroup, Spinner, Card, CardBody, CardTitle, FormFeedback
+  Container, Button, Label, Input, Form, FormGroup, Spinner, Card, CardBody, CardTitle, FormFeedback, Row, Col
 } from "reactstrap";
 import { useLocalStorage } from "../../../hooks/useLocalStorage";
 import EmailAlert from "./EmailAlert";
@@ -14,26 +14,32 @@ import ExamplesNavbar from "./Navbar";
 
 
 function Login() {
+  const {
+    register,
+    control,
+    handleSubmit,
+    formState: { errors }
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(loginSchema)
 
-  const [flag, setFlag] = useState(false);
+  });
 
-  const [spinner, setSpinner] = useState(false);
+  const [valFlag,setValFlag] = useState(false);
+
+  const { ref, ...emailField } = register("email");
 
   let [email, setEmail] = useLocalStorage('userEmailHP', '');
 
-  const {
-    register,
-    formState: { errors },
-    handleSubmit,
-  } = useForm({
-    resolver: yupResolver(loginSchema),
-  });
+  let [userLogin, setUserLogin] = useLocalStorage('user', "");
+
+  const [spinner, setSpinner] = useState(false);
 
   const navigate = useNavigate();
 
-  const fnSend = async (data) => {
+  const onSubmit = async (data) => {
+    alert(JSON.stringify(data))
     try {
-      console.log(data);
       setSpinner(true);
       let call = await API_AXIOS.get(
         endpointList.login + `?email=${data.email}&password=${data.password}`
@@ -45,6 +51,8 @@ function Login() {
           break;
         case 1:
           setEmail(data.email)
+          let date = new Date()
+          setUserLogin(date)
           alert("tamo activo menol");
           navigate('/menu')
           break;
@@ -53,51 +61,92 @@ function Login() {
           break;
 
         default:
-          alert("error")
-          break;
+          reset();
+          setSpinner(false);
       }
-      setSpinner(false);
     } catch (error) {
+      console.log("hello");
       console.log(error);
     }
   };
 
   const handlePassword = () => {
-    setFlag(true);
-    navigate('/login/forgetpassword')
+    setValFlag(true);
+    navigate('/login/forgotpassword');
   }
+
 
   return (
     <Container>
       <ExamplesNavbar />
-      <Card className="d-flex logincard">
-        <CardBody>
-          <CardTitle className="border-bottom mb-4">
-            <h2>Login</h2>
-          </CardTitle>
-          <Form onSubmit={handleSubmit(fnSend)}>
-            <FormGroup>
-              <Label for="email">Email</Label>
-              <Input id="email" name="email" placeholder="email" type="email" {...register("email")} />
-              {errors?.email &&
-                <FormFeedback>{errors?.email?.message}</FormFeedback>}
-            </FormGroup>
-            <FormGroup>
-              <Label htmlFor="password"> Password </Label>
-              <Input id="password" name="password" placeholder="password" type="password"  {...register("password")} />
-              {errors?.password &&
-                <FormFeedback>{errors?.password?.message}</FormFeedback>}
-            </FormGroup>
-            <Container className="d-flex flex-column justify-content-center align-center">
-              {spinner ? <Button className="m-2" type="submit" value="register"><Spinner /></Button> : <Button className="m-2" type="submit" value="register">Login</Button>}
-              <Button onClick={handlePassword} >Olvidaste tu contraseña</Button>
-            </Container>
-          </Form>
-          <Routes>
-            <Route path='/forgetpassword' element={<EmailAlert val={{ flag, setFlag }} />} />
-          </Routes>
-        </CardBody>
-      </Card>
+      <Container style={{ display: "flex", justifyContent: "center" }} >
+        <Card style={{ width: "40em" }} className="d-flex logincard text-center">
+          <CardBody>
+            <CardTitle className="border-bottom d-flex">
+              <span></span>
+              <h2 className="text-center">Login</h2>
+              <Button className="ms-auto mb-2 btn-menu text-light" disabled={spinner} color="info" onClick={() => navigate("/home")}>X</Button>
+            </CardTitle>
+
+            <Form onSubmit={handleSubmit(onSubmit)}>
+              <Row >
+                <Col md={12}>
+                  <FormGroup floating>
+                    <Input
+                      bsSize="sm"
+                      placeholder="email"
+                      type="email"
+                      invalid={errors.email ? true : false}
+                      innerRef={ref} {...emailField}
+                    />
+                    <Label for="email">Email</Label>
+                    {errors?.email && (
+                      <FormFeedback>{errors.email?.message}</FormFeedback>
+                    )}
+                  </FormGroup>
+                </Col>
+
+                <Col md={12}>
+                  <Controller
+                    control={control}
+                    name="password"
+                    render={({ field: { ref, ...fieldProps } }) => (
+                      <FormGroup floating>
+                        <Input
+                          bsSize="sm"
+                          name="password"
+                          placeholder="password"
+                          type="password"
+
+                          invalid={errors.password ? true : false}
+                          innerRef={ref} {...fieldProps}
+                        />
+
+                        <Label for="password"> Password </Label>
+                        {errors?.password && (
+                          <FormFeedback>{errors.password?.message}</FormFeedback>
+                        )}
+                      </FormGroup>
+                    )}
+                  />
+
+
+
+
+
+
+                </Col>
+              </Row>
+              {spinner ? <Button className="btn-menu text-light" color="info" type="submit"><Spinner /></Button> : <Button className="btn-menu text-light" color="info" type="submit">Login</Button>}
+              <br />
+              <Button className="mt-3 btn-menu text-light" color="info" disabled={spinner} onClick={handlePassword} >Olvidaste tu contraseña </Button>
+            </Form>
+          </CardBody>
+        </Card>
+        <Routes>
+        <Route path='/forgotpassword' element={<EmailAlert val={{ valFlag, setValFlag }} />} />
+        </Routes>
+      </Container>
     </Container>
   );
 }

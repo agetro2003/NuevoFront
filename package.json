@@ -9,7 +9,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@chakra-ui/react": "^2.3.2",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@hookform/resolvers": "^2.9.7",
@@ -21,7 +20,7 @@
     "mongodb": "^4.9.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-hook-form": "^7.34.2",
+    "react-hook-form": "^7.36.0",
     "react-router-dom": "^6.3.0",
     "reactstrap": "^9.1.4",
     "sass": "^1.54.9",

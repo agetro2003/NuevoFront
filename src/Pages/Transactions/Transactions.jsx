@@ -9,7 +9,8 @@ import {
     ModalHeader,
     ModalBody,
     Button,
-    Spinner
+    Spinner,
+    ModalFooter
 } from "reactstrap"
 import { yupResolver } from "@hookform/resolvers/yup"
 import { useEffect, useState } from "react"
@@ -73,11 +74,11 @@ function Transactions(props) {
 
     return (
         <Modal className="text-dark" isOpen={transFlag}>
-                <ModalHeader className="d-flex justify-content-around">Transactions
-                <Button disabled={spinner} onClick={() => setTransFlag(false)} close />
-                </ModalHeader>
+            <ModalHeader className="d-flex justify-content-around">
+                Transactions
+            </ModalHeader>
             <ModalBody>
-                <h2 >From:{userEmail}</h2>
+                <h4>From:{userEmail}</h4>
                 <Form onSubmit={handleSubmit(fnSend)}>
                     <FormGroup>
                         <Label> Email of receiver</Label>
@@ -105,6 +106,9 @@ function Transactions(props) {
                     </Container>
                 </Form>
             </ModalBody>
+            <ModalFooter>
+                <Button onClick={() => setTransFlag(false)}>X</Button>
+            </ModalFooter>
         </Modal>
     )
 

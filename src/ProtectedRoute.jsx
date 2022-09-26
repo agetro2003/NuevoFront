@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
+import AutoLogOut from "./Pages/AutoLogOut/AutoLogOut";
 
 
 
@@ -18,7 +19,8 @@ const ProtectedRoute = () => {
         let now = new Date()
         let auth = (date > now)
         console.log(date + " " + now)
-return auth ? <Outlet/> : navigate('/autoLogOut')
+        console.log(auth)
+return  auth ? <Outlet/> : <AutoLogOut/>
 }
 
 export default ProtectedRoute;

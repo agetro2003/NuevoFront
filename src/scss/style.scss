@@ -1,19 +1,46 @@
 $primary-color: #352F44;
-$secondary-color: #2A2438;
-$third-color: #411E8F;
+$secondary-color: #ffffff;
+$third-color: #352F44;
 $details-color: #310A5D;
 
 body {
-    background-color: black;
+    background-color: #293462;
     color: white;
 }
-.profileCard{
-    margin-top: 20em;
+
+.controlledInput {
+    width: 40vw;
 }
-.newalert{
+
+
+.profmar {
+    margin-top: 6em;
+}
+
+.separator {
+    height: 70vh;
+    width: 1px;
+    border: 1px solid white;
+}
+
+.cont {
     margin-top: 10em;
 }
-.regcard{
+
+.btn-menu {
+    background-color: #5F6F94;
+    background-color: cutom-color;
+}
+
+.profileCard {
+    margin-top: 20em;
+}
+
+.newalert {
+    margin-top: 10em;
+}
+
+.regcard {
     margin-top: 10em;
     color: $third-color;
 }
@@ -23,29 +50,47 @@ body {
     height: auto;
 }
 
-.linkscontainer{
-    margin-top: 15em;
+.linkscontainer {
+    margin-top: 9em;
 }
 
-.logincard{
+.logincard {
     text-align: center;
     color: #411E8F;
     margin-top: 15em;
 }
+
 .nav {
     font-weight: bold;
     background-color: $third-color;
     border-bottom: solid 0.3em $secondary-color;
-    box-shadow: 0.3em -.5em 1em 1em black;
+    box-shadow: 0.3em -.5em 0.5em 0.5em rgb(255, 255, 255);
 }
-
 
 .newcard {
     color: $details-color;
 
 }
 
+.wrapper {
+    margin-top: 10em;
+}
 
 .title {
     opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .CryptoCurrencies {
+        margin-left: 10vw;
+    }
+}
+.cryptoimg {
+    max-width: 3vw;
+}
+
+@media (max-width: 576px) {
+    .cryptoimg {
+        max-width: 10vw;
+    }
 }
