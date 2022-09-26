@@ -57,7 +57,7 @@ function Register() {
         setMsg("Your account has been created. Please verify your account using the link sent to your email");
         setTimeout(() => {
           setAlert(false);
-        }, 2000);
+        }, 3000);
       }
       else {
         setColor("danger");
@@ -65,7 +65,7 @@ function Register() {
         setAlert(true);
         setTimeout(() => {
         setAlert(false);
-        }, 2000);
+        }, 3000);
       }
       reset();
       setSpinner(false);

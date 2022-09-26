@@ -234,7 +234,7 @@ function PaymentHistory(props) {
                     <Input placeholder="Start date" className="mb-4" type="date"  {...register("startDate")} />
                     <Input placeholder="End date" className="mb-4" type="date"  {...register("endDate")} />*/}
                     <Container className='text-center'>
-                        {spinner ? <Button disabled={spinner} type="submit" color="info" className="btn-menu text-light" value="Fill data"><Spinner /></Button> : <Button type="submit" color="info" className="btn-menu text-light" value="Fill data">Fill Data</Button>}
+                        {spinner ? <Button disabled={spinner} type="submit" color="info" className="btn-menu text-light" value="Fill data"><Spinner /></Button> : <Button type="submit" color="info" className="btn-menu text-light" value="Fill data">Filter Data</Button>}
                     </Container>
                 </Form>
                 <Table>

@@ -21,14 +21,14 @@ function Homepages() {
             <ExamplesNavbar val={["register", "login"]} />
             <Container className="d-flex flex-column wrapper">
                 <Container className=" d-flex flex-column">
-                    <h2 className="align-self-center title p-3">Quienes Somos?</h2>
+                    <h2 className="align-self-center title p-3">Who are we?</h2>
                     <h5 className="description p-3">
-                        Somos CryptoCoders una empresa enfocada en buscar una solución innovadora para
-                        las billeteras digitales.
+                        We are CryptoCoders, a small-business focused in looking for an innovative solution
+                        for crypto wallets.
                     </h5>
                 </Container>
                 <Container className="d-flex flex-column justify-content-center align-items-center">
-                    <h2 className="mb-3">Las CryptoMonedas que aceptamos</h2>
+                    <h2 className="mb-3">The Cryptos we use!</h2>
                     <Container className="CryptoCurrencies">
                         <Row>
                             <Card title="USDT" cat="StableCoin">
@@ -54,7 +54,7 @@ function Homepages() {
                 </Container>
                 <div className="section section-contact-us text-center">
                     <Container className="d-flex flex-column">
-                        <h2 className="title">¿Cómo hago una transacción?</h2>
+                        <h2 className="title">How may I process a transaction with CryptoCoders?</h2>
                         <p className="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nisi, tempore!</p>
                         <Row className="p-5 align-self-center d-flex flex-column">
                             <Message />

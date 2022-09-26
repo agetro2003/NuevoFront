@@ -2,7 +2,7 @@ import { Col, Input, Button } from "reactstrap"
 
 export default function Message() {
     return(<Col className="align-self-center text-center ml-auto mr-auto" lg="6" md="8">
-        <h1>Envianos un mensaje</h1>
+        <h1>Send us a message</h1>
         <div className="textarea-container">
             <Input
                 cols="1000"
@@ -21,7 +21,7 @@ export default function Message() {
                 onClick={(e) => e.preventDefault()}
                 size="lg"
             >
-                Enviar Mensaje
+                Send Message
             </Button>
         </div>
     </Col>);

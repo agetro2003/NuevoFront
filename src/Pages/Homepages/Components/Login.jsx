@@ -25,7 +25,7 @@ function Login() {
 
   });
 
-  const [valFlag,setValFlag] = useState(false);
+  const [valFlag, setValFlag] = useState(false);
 
   const { ref, ...emailField } = register("email");
 
@@ -139,12 +139,12 @@ function Login() {
               </Row>
               {spinner ? <Button className="btn-menu text-light" color="info" type="submit"><Spinner /></Button> : <Button className="btn-menu text-light" color="info" type="submit">Login</Button>}
               <br />
-              <Button className="mt-3 btn-menu text-light" color="info" disabled={spinner} onClick={handlePassword} >Olvidaste tu contraseña </Button>
+              <Button className="mt-3 btn-menu text-light" color="info" disabled={spinner} onClick={handlePassword} >Forgot Password</Button>
             </Form>
           </CardBody>
         </Card>
         <Routes>
-        <Route path='/forgotpassword' element={<EmailAlert val={{ valFlag, setValFlag }} />} />
+          <Route path='/forgotpassword' element={<EmailAlert val={{ valFlag, setValFlag }} />} />
         </Routes>
       </Container>
     </Container>

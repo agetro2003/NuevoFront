@@ -11,6 +11,7 @@ import {
     Container,
     ModalFooter,
     Spinner,
+    Alert,
 } from "reactstrap";
 import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -22,6 +23,12 @@ import { useState } from 'react';
 
 function EmailAlert(props) {
     const [spinner, setSpinner] = useState(false);
+
+    const [msg, setMsg] = useState("You will receive an email to update your password");
+
+    const [color,setColor] = useState("primary");
+
+    const [showAlert, setShowAlert] = useState(false);
 
     const { valFlag, setValFlag } = props.val;
 
@@ -44,9 +51,17 @@ function EmailAlert(props) {
         let registeredFlag = await API_AXIOS.get(`${endpointList.findEmail}?email=${email}`);
         if (registeredFlag.data) {
             await API_AXIOS.post(`${endpointList.forgotPassword}?email=${email}`)
-            alert("Recibirá un correo para cambiar su contraseña");
+            setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 3000);
         } else {
-            alert("El correo no está registrado");
+            setMsg("Sorry, The email address is not registered in our database");
+            setColor("danger");
+            setShowAlert(true);
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 3000);
         }
         setSpinner(false);
         reset();
@@ -56,6 +71,9 @@ function EmailAlert(props) {
     return (
         <Modal isOpen={valFlag} size="md" className="text-dark">
             <Container className="text-black">
+                <Alert className="m-2" fade isOpen={showAlert} color={color}>
+                    {msg}
+                </Alert>
                 <ModalHeader>
                     Forgot Password
                 </ModalHeader>
@@ -84,10 +102,10 @@ function EmailAlert(props) {
                             </FormGroup>
                         )}
                     />
-                    {spinner ? <Button mt="2em" disabled={spinner} className="btn-menu" color="info" type="submit"><Spinner /></Button> : <Button mt="2em" className="btn-menu text-light" color="info" type="submit">Enviar</Button>}
+                    {spinner ? <Button mt="2em" disabled={spinner} className="btn-menu text-light" color="info" type="submit"><Spinner /></Button> : <Button mt="2em" className="btn-menu text-light" color="info" type="submit">Enviar</Button>}
                 </Form>
             </ModalBody>
-            <ModalFooter><Button disabled={spinner} className="btn-menu text-light" color="info" >X</Button></ModalFooter>
+            <ModalFooter><Button disabled={spinner} onClick={() => setValFlag(false)} className="btn-menu text-light" color="info" >X</Button></ModalFooter>
         </Modal>
     )
 }
